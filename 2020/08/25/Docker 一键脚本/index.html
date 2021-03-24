@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>
+        Docker 一键脚本 |
+        
+        PikaChu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Docker1234$ curl -fsSL get.docker.com -o get-docker.sh $ sudo sh get-docker.sh# $ sudo sh get-docker.sh --mirror Aliyun # $ sudo sh get-docker.sh --mirror AzureChinaCloud  Docker-compose12$ sudo curl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 一键脚本">
+<meta property="og:url" content="https://blog.jzy.pub/2020/08/25/Docker%20%E4%B8%80%E9%94%AE%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="PikaChu">
+<meta property="og:description" content="Docker1234$ curl -fsSL get.docker.com -o get-docker.sh $ sudo sh get-docker.sh# $ sudo sh get-docker.sh --mirror Aliyun # $ sudo sh get-docker.sh --mirror AzureChinaCloud  Docker-compose12$ sudo curl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-25T03:07:24.000Z">
+<meta property="article:modified_time" content="2021-03-24T14:21:49.365Z">
+<meta property="article:author" content="PikaChu">
+<meta name="twitter:card" content="summary">
+    
+    
+        <link rel="icon" href="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png">
+    
+    
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/markdown.css">
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/july.css">
+        
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="PikaChu" type="application/atom+xml">
+</head>
+<body>
+
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png" id="avatar">
+</div>
+
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="https://blog.jzy.pub/index.html">Home</a>
+        
+            <a class="false" href="https://blog.jzy.pub/archives/index.html">Archives</a>
+        
+            <a class="false" href="https://blog.jzy.pub/atom.xml">Rss</a>
+        
+            <a class="false" href="https://blog.jzy.pubhttps://auosun.jzy.pub:5001" target="_blank" rel="noopener">Synology</a>
+        
+    </div>
+</div>
+
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">Docker 一键脚本</h1>
+    <time id="post-date" datetime="2020-08-25T03:07:24.000Z">
+        八月 25, 2020
+    </time>
+    <div id="post-content" class="markdown-body">
+        <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh </span><br><span class="line">$ sudo sh get-docker.sh</span><br><span class="line"><span class="comment"># $ sudo sh get-docker.sh --mirror Aliyun </span></span><br><span class="line"><span class="comment"># $ sudo sh get-docker.sh --mirror AzureChinaCloud</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker-compose"></a>Docker-compose</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.26.2/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">$ sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="Openwrt-install-Docker-compose"><a href="#Openwrt-install-Docker-compose" class="headerlink" title="Openwrt install Docker-compose"></a>Openwrt install Docker-compose</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install --ignore-installed PyYAML</span><br><span class="line">$ pip3 install docker-compose==1.23.2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="v2ray"><a href="#v2ray" class="headerlink" title="v2ray"></a>v2ray</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:8888 v2ray/official v2ray -config=/etc/v2ray/config.json</span><br><span class="line">$ docker run -d --name v2ray --net=host -v /mnt/user/appdata/v2ray:/etc/v2ray v2ray/official  v2ray -config=/etc/v2ray/config.json</span><br></pre></td></tr></table></figure>
+
+<h2 id="webdav"><a href="#webdav" class="headerlink" title="webdav"></a>webdav</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart always -v /root/webdav:/var/lib/dav  -e AUTH_TYPE=Basic -e USERNAME=&lt;username&gt; -e PASSWORD=&lt;password&gt; --publish 6666:80 -d bytemark/webdav</span><br></pre></td></tr></table></figure>
+
+<h2 id="Qbittorrent"><a href="#Qbittorrent" class="headerlink" title="Qbittorrent"></a>Qbittorrent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker create \</span><br><span class="line">  --name&#x3D;qbittorrent \</span><br><span class="line">  -e PUID&#x3D;1000 \</span><br><span class="line">  -e PGID&#x3D;1000 \</span><br><span class="line">  -e TZ&#x3D;Asia&#x2F;Shanghai \</span><br><span class="line">  -e UMASK_SET&#x3D;022 \</span><br><span class="line">  -e WEBUI_PORT&#x3D;8080 \</span><br><span class="line">  -p 6881:6881 \</span><br><span class="line">  -p 6881:6881&#x2F;udp \</span><br><span class="line">  -p 8080:8080 \</span><br><span class="line">  -v &#x2F;root&#x2F;qb&#x2F;config:&#x2F;config \</span><br><span class="line">  -v &#x2F;root&#x2F;downloads:&#x2F;downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  linuxserver&#x2F;qbittorrent</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;2.1&quot;</span><br><span class="line">services:</span><br><span class="line">  qbittorrent:</span><br><span class="line">    image: linuxserver&#x2F;qbittorrent</span><br><span class="line">    container_name: qbittorrent</span><br><span class="line">    environment:</span><br><span class="line">      - PUID&#x3D;1000</span><br><span class="line">      - PGID&#x3D;1000</span><br><span class="line">      - TZ&#x3D;Asia&#x2F;Shanghai</span><br><span class="line">      - UMASK_SET&#x3D;022</span><br><span class="line">      - WEBUI_PORT&#x3D;8080</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;share&#x2F;config&#x2F;qb:&#x2F;config</span><br><span class="line">      - &#x2F;share&#x2F;Download:&#x2F;downloads</span><br><span class="line">      - &#x2F;share&#x2F;XXX:&#x2F;media&#x2F;XXX</span><br><span class="line">      - &#x2F;share&#x2F;ZZZ:&#x2F;media&#x2F;ZZZ</span><br><span class="line">    network_mode: &quot;host&quot;</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    &lt;!--ports:--&gt;</span><br><span class="line">    &lt;!--  - 32581:32581--&gt;</span><br><span class="line">    &lt;!--  - 32581:32581&#x2F;udp--&gt;</span><br><span class="line">    &lt;!--  - 8080:8080--&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3.1&#39;</span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql</span><br><span class="line">    command: --default-authentication-plugin&#x3D;mysql_native_password</span><br><span class="line">    restart: always</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: &lt;password&gt;</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">      </span><br><span class="line">  adminer:</span><br><span class="line">    image: adminer</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - 8080:8080</span><br></pre></td></tr></table></figure>
+
+<h2 id="ali-ddns"><a href="#ali-ddns" class="headerlink" title="ali-ddns"></a>ali-ddns</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always --net=host \</span><br><span class="line">	-e <span class="string">"AKID=&lt;AKID&gt;"</span> \</span><br><span class="line">	-e <span class="string">"AKSCT=&lt;AKSCT&gt;"</span> \</span><br><span class="line">	-e <span class="string">"DOMAIN=&lt;DOMAIN&gt;"</span> \</span><br><span class="line">	-e <span class="string">"REDO=300"</span> \</span><br><span class="line">	-e <span class="string">"TTL=600"</span> \</span><br><span class="line">	-e <span class="string">"TIMEZONE=8.0"</span> \</span><br><span class="line">	-e <span class="string">"TYPE=AAAA"</span> \</span><br><span class="line">sanjusss/aliyun-ddns</span><br></pre></td></tr></table></figure>
+
+<h2 id="jellyfin"><a href="#jellyfin" class="headerlink" title="jellyfin"></a>jellyfin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line">services:</span><br><span class="line">  jellyfin:</span><br><span class="line">    image: jellyfin&#x2F;jellyfin</span><br><span class="line">    user: 1000:1000</span><br><span class="line">    network_mode: &quot;host&quot;</span><br><span class="line">    restart: &quot;unless-stopped&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;share&#x2F;config&#x2F;jellyfin&#x2F;:&#x2F;config</span><br><span class="line">      - &#x2F;share&#x2F;Download:&#x2F;media</span><br><span class="line">      - &#x2F;share&#x2F;config&#x2F;jellyfin&#x2F;cache:&#x2F;cache</span><br><span class="line">      - &#x2F;share&#x2F;ZZZ:&#x2F;media&#x2F;ZZZ</span><br></pre></td></tr></table></figure>
+
+<h2 id="freshrss"><a href="#freshrss" class="headerlink" title="freshrss"></a>freshrss</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;2.1&quot;</span><br><span class="line">services:</span><br><span class="line">  freshrss:</span><br><span class="line">    image: linuxserver&#x2F;freshrss</span><br><span class="line">    container_name: freshrss</span><br><span class="line">    environment:</span><br><span class="line">      - PUID&#x3D;1000</span><br><span class="line">      - PGID&#x3D;1000</span><br><span class="line">      - TZ&#x3D;Asia&#x2F;Shanghai</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;root&#x2F;freshrss&#x2F;config:&#x2F;config</span><br><span class="line">    ports:</span><br><span class="line">      - 8086:80</span><br><span class="line">    restart: unless-stopped</span><br></pre></td></tr></table></figure>
+
+<h2 id="bitwarden"><a href="#bitwarden" class="headerlink" title="bitwarden"></a>bitwarden</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name bitwarden -v /root/bw-data/:/data/ -p 4331:80 bitwardenrs/server:latest</span><br></pre></td></tr></table></figure>
+
+<h2 id="frp"><a href="#frp" class="headerlink" title="frp"></a>frp</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -v ~/frps:/conf --name frp-server-dashboard --net=host cloverzrg/frps-docker</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+</article>
+
+<div id="paginator">
+    
+</div>
+
+    </div>
+</div>
+
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2021 PikaChu 苏ICP备18013751号
+    </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="https://blog.jzy.pub/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/transition.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
+</body>
+</html>

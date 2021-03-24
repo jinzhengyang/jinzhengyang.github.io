@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>
+        Git基本命令 |
+        
+        PikaChu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="记录基础的git命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git基本命令">
+<meta property="og:url" content="https://blog.jzy.pub/2020/02/21/Git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="PikaChu">
+<meta property="og:description" content="记录基础的git命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-21T14:20:00.000Z">
+<meta property="article:modified_time" content="2021-03-24T14:21:49.365Z">
+<meta property="article:author" content="PikaChu">
+<meta name="twitter:card" content="summary">
+    
+    
+        <link rel="icon" href="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png">
+    
+    
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/markdown.css">
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/july.css">
+        
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="PikaChu" type="application/atom+xml">
+</head>
+<body>
+
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png" id="avatar">
+</div>
+
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="https://blog.jzy.pub/index.html">Home</a>
+        
+            <a class="false" href="https://blog.jzy.pub/archives/index.html">Archives</a>
+        
+            <a class="false" href="https://blog.jzy.pub/atom.xml">Rss</a>
+        
+            <a class="false" href="https://blog.jzy.pubhttps://auosun.jzy.pub:5001" target="_blank" rel="noopener">Synology</a>
+        
+    </div>
+</div>
+
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">Git基本命令</h1>
+    <time id="post-date" datetime="2020-02-21T14:20:00.000Z">
+        二月 21, 2020
+    </time>
+    <div id="post-content" class="markdown-body">
+        <p>记录基础的git命令</p>
+<a id="more"></a>
+
+<ul>
+<li><p>身份注册</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"uername"</span></span><br><span class="line">$ git config --global user.email &lt;email&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>添加一个新的远程库  <code>git remote add [shortname] [url]</code></p>
+</li>
+<li><p>初始化一个Git仓库 <code>git init</code></p>
+</li>
+<li><p>添加文件到Git本地仓库:</p>
+<ol>
+<li><code>git add &lt;file&gt;</code> 可反复多次使用，添加多个文件</li>
+<li><code>git commit -m &lt;message&gt;</code>完成</li>
+</ol>
+</li>
+<li><p>工作区状态 <code>git status</code></p>
+</li>
+<li><p>查看修改内容 <code>git diff</code></p>
+</li>
+<li><p>查看提交历史 <code>git log</code></p>
+</li>
+<li><p>HEAD指向的版本就是当前版本,在历史版本之间切换 <code>git reset --hard [commit_id]</code></p>
+</li>
+<li><p>查看命令历史 <code>git reflog</code></p>
+</li>
+<li><p>丢弃工作区的修改 <code>git checkout -- file</code></p>
+</li>
+<li><p>丢弃暂存区 <code>git reset HEAD [file]</code></p>
+</li>
+<li><p>删除文件 <code>git rm</code></p>
+</li>
+<li><p>创建一个分支包含前面的内容 <code>git checkout --orphan doc</code></p>
+</li>
+<li><p>提交到分支 <code>git push -u origin master</code></p>
+</li>
+<li><p>合并分支 <code>git merge</code></p>
+</li>
+<li><p>更新代码到本地</p>
+<ol>
+<li><code>git status</code> 本地分支文件信息</li>
+<li><code>git branch</code> 查看当前分支</li>
+<li><code>git checkout [name]</code> 切换分支</li>
+<li><code>git pull</code> 更新代码</li>
+</ol>
+</li>
+<li><p>克隆代码到本地 <code>git clone &lt;ssh&gt;</code></p>
+</li>
+<li><p>删除远程仓库文件 <code>git rm -r --cached</code></p>
+</li>
+</ul>
+
+    </div>
+</article>
+
+<div id="paginator">
+    
+</div>
+
+    </div>
+</div>
+
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2021 PikaChu 苏ICP备18013751号
+    </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="https://blog.jzy.pub/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/transition.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
+</body>
+</html>

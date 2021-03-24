@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>
+        TeamSpeak搭建笔记 |
+        
+        PikaChu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TeamSpeak 虽然说是比较老的东西了 但很使用 很方便 最重要的是它可以自建服务器 是YY的一个很好的替代品 音质优秀 防监听 畅所欲言 并能够为你和朋友构建更好的游戏语音平台 。你可以来我的服务尝试它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TeamSpeak搭建笔记">
+<meta property="og:url" content="https://blog.jzy.pub/2018/12/15/TeamSpeak%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="PikaChu">
+<meta property="og:description" content="TeamSpeak 虽然说是比较老的东西了 但很使用 很方便 最重要的是它可以自建服务器 是YY的一个很好的替代品 音质优秀 防监听 畅所欲言 并能够为你和朋友构建更好的游戏语音平台 。你可以来我的服务尝试它">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-15T16:06:24.000Z">
+<meta property="article:modified_time" content="2021-03-24T14:21:49.365Z">
+<meta property="article:author" content="PikaChu">
+<meta name="twitter:card" content="summary">
+    
+    
+        <link rel="icon" href="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png">
+    
+    
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/markdown.css">
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/july.css">
+        
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="PikaChu" type="application/atom+xml">
+</head>
+<body>
+
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png" id="avatar">
+</div>
+
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="https://blog.jzy.pub/index.html">Home</a>
+        
+            <a class="false" href="https://blog.jzy.pub/archives/index.html">Archives</a>
+        
+            <a class="false" href="https://blog.jzy.pub/atom.xml">Rss</a>
+        
+            <a class="false" href="https://blog.jzy.pubhttps://auosun.jzy.pub:5001" target="_blank" rel="noopener">Synology</a>
+        
+    </div>
+</div>
+
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">TeamSpeak搭建笔记</h1>
+    <time id="post-date" datetime="2018-12-15T16:06:24.000Z">
+        十二月 16, 2018
+    </time>
+    <div id="post-content" class="markdown-body">
+        <p>TeamSpeak 虽然说是比较老的东西了 但很使用 很方便 最重要的是它可以自建服务器 是YY的一个很好的替代品 音质优秀 防监听 畅所欲言 并能够为你和朋友构建更好的游戏语音平台 。<br>你可以来我的服务尝试它</p>
+<a id="more"></a>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server : ts.jzy.pub</span><br><span class="line">password : 1999</span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端下载"><a href="#客户端下载" class="headerlink" title="客户端下载"></a>客户端下载</h3><p>TeamSpeak 客户端推荐从官网下载 <a href="https://www.teamspeak.com/en/" target="_blank" rel="noopener">https://www.teamspeak.com/en/</a><br>国内那个teamspeak是魔改版已经很久没有更新了 也无法正常使用。  </p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>阿里云学生机<br>centos7.4<br>安全组放行 <strong>TCP/UDP:9987  TCP:10011 TCP:30033</strong>  </p>
+<p>安装依赖库  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum update -y</span><br><span class="line">$ yum install vim wget perl net-tools bzip2 -y</span><br></pre></td></tr></table></figure>
+
+<p>创建TeamSpeak用户  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ useradd ts</span><br></pre></td></tr></table></figure>
+
+<p>修改ts密码  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ passwd ts</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载TeamSpeak服务器端"><a href="#下载TeamSpeak服务器端" class="headerlink" title="下载TeamSpeak服务器端"></a>下载TeamSpeak服务器端</h3><p>进入ts用户  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ su - ts</span><br></pre></td></tr></table></figure>
+
+<p>下载teamspeak服务端  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://files.teamspeak-services.com/releases/server/3.11.0/teamspeak3-server_linux_amd64-3.11.0.tar.bz2</span><br></pre></td></tr></table></figure>
+
+<p>解压  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xjvf teamspeak3-server_linux_amd64-3.11.0.tar.bz2</span><br><span class="line">$ <span class="built_in">cd</span> teamspeak3-server_linux_amd64</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行teamspeak"><a href="#运行teamspeak" class="headerlink" title="运行teamspeak"></a>运行teamspeak</h3><p>启动  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch .ts3server_license_accepted</span><br><span class="line">$ ./ts3server_startscript.sh start</span><br></pre></td></tr></table></figure>
+
+<p>首次启动保存 Token、serveradmin 和serverpass<br>第一次客户端连接时会要求使用token 使用token的用户是管理员用户  </p>
+<h3 id="开机自启"><a href="#开机自启" class="headerlink" title="开机自启"></a>开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>在文本中操作<br><em>shift-i</em> 进入文本写入模式<br>将下面这句话复制进文本   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@reboot /home/ts/teamspeak3-server_linux_amd64/ts3server_startscript.sh start</span><br></pre></td></tr></table></figure>
+<p><em>esc</em><br><em>:wq</em> 保存并退出  </p>
+<p>查看是否成功  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>teamspeak 官网：<a href="https://www.teamspeak.com/en/" target="_blank" rel="noopener">https://www.teamspeak.com/en/</a><br>机智的狐狸菌： <a href="https://www.smartfox.cc/index.php/archives/3986/" target="_blank" rel="noopener">https://www.smartfox.cc/index.php/archives/3986/</a></p>
+
+    </div>
+</article>
+
+<div id="paginator">
+    
+</div>
+
+    </div>
+</div>
+
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2021 PikaChu 苏ICP备18013751号
+    </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="https://blog.jzy.pub/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/transition.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
+</body>
+</html>

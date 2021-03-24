@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>
+        qBittorrent服务器搭建笔记(Docker版) |
+        
+        PikaChu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="docker版相比较于qbittorrent-nox版 Docker不需要担心缺少服务器组件，同时也会获得更大的空间，便于管理，直接使用docker进行管理的方式比单独记nox版的命令方便的多。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qBittorrent服务器搭建笔记(Docker版)">
+<meta property="og:url" content="https://blog.jzy.pub/2019/12/16/qBittorrent%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0-Docker%E7%89%88/index.html">
+<meta property="og:site_name" content="PikaChu">
+<meta property="og:description" content="docker版相比较于qbittorrent-nox版 Docker不需要担心缺少服务器组件，同时也会获得更大的空间，便于管理，直接使用docker进行管理的方式比单独记nox版的命令方便的多。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-16T10:11:00.000Z">
+<meta property="article:modified_time" content="2021-03-24T14:21:49.365Z">
+<meta property="article:author" content="PikaChu">
+<meta name="twitter:card" content="summary">
+    
+    
+        <link rel="icon" href="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png">
+    
+    
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/markdown.css">
+        
+            <link rel="stylesheet" href="https://blog.jzy.pub/css/july.css">
+        
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="PikaChu" type="application/atom+xml">
+</head>
+<body>
+
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://aupicgo.oss-cn-shanghai.aliyuncs.com/img/20210324204606.png" id="avatar">
+</div>
+
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="https://blog.jzy.pub/index.html">Home</a>
+        
+            <a class="false" href="https://blog.jzy.pub/archives/index.html">Archives</a>
+        
+            <a class="false" href="https://blog.jzy.pub/atom.xml">Rss</a>
+        
+            <a class="false" href="https://blog.jzy.pubhttps://auosun.jzy.pub:5001" target="_blank" rel="noopener">Synology</a>
+        
+    </div>
+</div>
+
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">qBittorrent服务器搭建笔记(Docker版)</h1>
+    <time id="post-date" datetime="2019-12-16T10:11:00.000Z">
+        十二月 16, 2019
+    </time>
+    <div id="post-content" class="markdown-body">
+        <p>docker版相比较于qbittorrent-nox版 Docker不需要担心缺少服务器组件，同时也会获得更大的空间，便于管理，直接使用docker进行管理的方式比单独记nox版的命令方便的多。</p>
+<a id="more"></a>
+
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>Racknerd 洛杉矶DC02机房<br>Debian 9 64 Bit<br>安全组放行 <strong>TCP:80,TCP/UDP:8999</strong></p>
+<h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><p>使用docker官方一键脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br><span class="line"><span class="comment"># $ sudo sh get-docker.sh --mirror AzureChinaCloud</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完毕后启动docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker <span class="comment">#docker开启自启</span></span><br><span class="line">$ sudo systemctl start docker <span class="comment">#启动docker</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装Qbittorrent"><a href="#安装Qbittorrent" class="headerlink" title="安装Qbittorrent"></a>安装Qbittorrent</h2><h4 id="下载qBittorrent镜像"><a href="#下载qBittorrent镜像" class="headerlink" title="下载qBittorrent镜像"></a>下载qBittorrent镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例： 这是文档简单例子，无法运行成功</span></span><br><span class="line">docker create \</span><br><span class="line">  --name=qbittorrent \</span><br><span class="line">  -e PUID=1000 \</span><br><span class="line">  -e PGID=1000 \</span><br><span class="line">  -e TZ=Europe/London \</span><br><span class="line">  -e UMASK_SET=022 \</span><br><span class="line">  -e WEBUI_PORT=8080 \</span><br><span class="line">  -p 6881:6881 \</span><br><span class="line">  -p 6881:6881/udp \</span><br><span class="line">  -p 8080:8080 \</span><br><span class="line">  -v &amp;lt;/path/to/appdata/config&amp;gt;:/config \</span><br><span class="line">  -v &amp;lt;/path/to/downloads&amp;gt;:/downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  linuxserver/qbittorrent</span><br></pre></td></tr></table></figure>
+
+<p>在当前用户目录 新建二个文件夹 <strong>config</strong> <strong>downloads</strong><br>然后使用如下命令下载镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ docker create \</span><br><span class="line">    --name=qbittorrent \</span><br><span class="line">    -e PUID=1000 \</span><br><span class="line">    -e PGID=1000 \</span><br><span class="line">    -e TZ=Europe/London \</span><br><span class="line">    -e UMASK_SET=022 \</span><br><span class="line">    -e WEBUI_PORT=80 \</span><br><span class="line">    -p 8999:8999 \</span><br><span class="line">    -p 8999:8999/udp \</span><br><span class="line">    -p 80:80 \</span><br><span class="line">    -v ~/config:/config \</span><br><span class="line">    -v ~/downloads:/downloads \</span><br><span class="line">    --restart unless-stopped \</span><br><span class="line">    linuxserver/qbittorrent</span><br></pre></td></tr></table></figure>
+
+<p>我们在实际运行的命令中更改了pt下载端口为<strong>8999</strong> 因为<strong>6881</strong>在我使用的<strong>pt站点</strong>是被禁用的。同时我们将<strong>qbittorrent的Webui</strong>运行在<strong>80</strong>端口这样我们可以通过网址或者ip直接访问</p>
+<h4 id="运行qBittorrent"><a href="#运行qBittorrent" class="headerlink" title="运行qBittorrent"></a>运行qBittorrent</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker start qbittorrent</span><br></pre></td></tr></table></figure>
+
+<p>docker版qBittorrent就安装完成了，相较于nox版也简单的多</p>
+<h2 id="附录："><a href="#附录：" class="headerlink" title="附录："></a>附录：</h2><h4 id="docker控制qBittorrent命令"><a href="#docker控制qBittorrent命令" class="headerlink" title="docker控制qBittorrent命令"></a>docker控制qBittorrent命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull linuxserver/qbittorrent (更新图像)</span><br><span class="line">$ docker stop qbittorrent (停止正在运行的容器)</span><br><span class="line">$ docker rm qbittorrent (删除容器)</span><br><span class="line">$ docker start qbittorrent (启动新容器)</span><br><span class="line">$ docker image prune (删除旧的悬空图像)</span><br></pre></td></tr></table></figure>
+
+<p>docker命令是通用的 你可以将他们使用到其他镜像 只需要更改命令结尾的<strong>qbittorrent</strong></p>
+<h2 id="参考教程"><a href="#参考教程" class="headerlink" title="参考教程"></a>参考教程</h2><ol>
+<li><a href="https://github.com/linuxserver/docker-qbittorrent" target="_blank" rel="noopener">linuxserver/qbittorrent</a></li>
+<li><a href="https://docker_practice.gitee.io/zh-cn/" target="_blank" rel="noopener">Docker — 从入门到实践</a></li>
+</ol>
+
+    </div>
+</article>
+
+<div id="paginator">
+    
+</div>
+
+    </div>
+</div>
+
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2021 PikaChu 苏ICP备18013751号
+    </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="https://blog.jzy.pub/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/transition.js"></script>
+    
+        <script src="https://blog.jzy.pub/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
+</body>
+</html>
